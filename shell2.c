@@ -48,6 +48,16 @@ while (1)
         argv[i - 2] = NULL;
         outfile = argv[i - 1];
         }
+    else if (! strcmp(argv[i - 2], "2>")) {
+        redirect = 2;
+        argv[i - 2] = NULL;
+        outfile = argv[i - 1];
+        }
+    else if (! strcmp(argv[i - 2], ">>")) {
+        redirect = 3;
+        argv[i - 2] = NULL;
+        outfile = argv[i - 1];
+        }
     else 
         redirect = 0; 
 

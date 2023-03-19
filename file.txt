@@ -1,0 +1,12 @@
+total 140
+-rw-r--r-- 1 dvir1234 dvir1234    12 Mar 19 15:48 README.md
+-rw-r----- 1 dvir1234 dvir1234     0 Mar 19 16:26 file.txt
+-rw-r--r-- 1 dvir1234 dvir1234  1074 Mar 19 15:49 key.c
+-rwxr-xr-x 1 dvir1234 dvir1234 38784 Mar 19 15:54 main
+-rw-r--r-- 1 dvir1234 dvir1234   123 Mar 19 15:44 main.cpp
+-rw-r--r-- 1 dvir1234 dvir1234     0 Mar 19 16:00 mylog.txt
+-rwxr-xr-x 1 dvir1234 dvir1234 20392 Mar 19 16:26 myshell
+-rw-r--r-- 1 dvir1234 dvir1234  1032 Mar 19 15:49 shell1.c
+-rw-r--r-- 1 dvir1234 dvir1234  1713 Mar 19 16:26 shell2.c
+-rw-r--r-- 1 dvir1234 dvir1234  2687 Mar 19 15:49 shell3.c
+-rw-r--r-- 1 dvir1234 dvir1234 54501 Mar 19 15:49 task1.pdf
