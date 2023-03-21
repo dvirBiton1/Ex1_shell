@@ -7,11 +7,14 @@
 #include "unistd.h"
 #include <string.h>
 #include <iostream>
+#include <map>
+#include <cstdlib>
 
+using namespace std;
 char PROMPT_BUFFER[30];
 
 void sigint_handler(int signum) {
-    std::cout << "You typed Control-C!" << std::endl << PROMPT_BUFFER << std::flush;
+    std::cout << "You typed Control-C!" << std::endl  << std::flush;
 }
 
 int main() {
@@ -22,13 +25,16 @@ int main() {
     int i, fd, amper, redirect, retid, status;
     char *argv[10];
     strcpy(PROMPT_BUFFER, "hello: ");
+    map<int, string> last_commands;
+    int last_command_key=-1;
 
     while (1)
     {
         printf("%s", PROMPT_BUFFER);
         fgets(command, 1024, stdin);
         command[strlen(command) - 1] = '\0';
-
+        last_command_key+=1;
+        last_commands.insert({ last_command_key, command });
         /* parse command line */
         i = 0;
         token = strtok (command," ");
@@ -48,6 +54,18 @@ int main() {
             return 0;
         }
 
+        if (! strcmp(argv[0], "!!")){
+            char * com = const_cast<char*>(last_commands[last_command_key-1].c_str());
+            std::cout<< com<<std::endl;
+            std::system(com);
+        }
+
+//        if (! strcmp(argv[0], "cd")){
+//            std::string str_command(command);
+//            string sliced_cd = str_command.substr(2);
+//            char * s_cd = const_cast<char*>(sliced_cd.c_str());
+//            chdir(s_cd);
+//        }
 
         /* Does command line start with echo */
         if (! strcmp(argv[0], "echo")){
