@@ -6,14 +6,21 @@
 #include "stdlib.h"
 #include "unistd.h"
 #include <string.h>
+#include <iostream>
+
+char PROMPT_BUFFER[30];
+
+void sigint_handler(int signum) {
+    std::cout << "You typed Control-C!" << std::endl << PROMPT_BUFFER << std::flush;
+}
 
 int main() {
+    signal(SIGINT, sigint_handler);
     char command[1024];
     char *token;
     char *outfile;
     int i, fd, amper, redirect, retid, status;
     char *argv[10];
-    char PROMPT_BUFFER[30];
     strcpy(PROMPT_BUFFER, "hello: ");
 
     while (1)
@@ -36,6 +43,11 @@ int main() {
         /* Is command empty */
         if (argv[0] == NULL)
             continue;
+
+        if (! strcmp(argv[0], "quit")){
+            return 0;
+        }
+
 
         /* Does command line start with echo */
         if (! strcmp(argv[0], "echo")){
