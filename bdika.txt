@@ -1,0 +1,12 @@
+total 136
+-rwxrwxrwx 1 shirazi97 shirazi97    13 Mar 19 15:53 README.md
+-rwxrwxrwx 1 shirazi97 shirazi97     0 Mar 19 17:29 bdika.txt
+-rwxrwxrwx 1 shirazi97 shirazi97  1123 Mar 19 15:53 key.c
+-rwxrwxrwx 1 shirazi97 shirazi97    50 Mar 19 17:26 log.txt
+-rwxrwxrwx 1 shirazi97 shirazi97 38784 Mar 19 16:27 main
+-rwxrwxrwx 1 shirazi97 shirazi97   130 Mar 19 15:53 main.cpp
+-rwxrwxrwx 1 shirazi97 shirazi97 20792 Mar 19 17:28 myshell
+-rwxrwxrwx 1 shirazi97 shirazi97  1085 Mar 19 15:53 shell1.c
+-rwxrwxrwx 1 shirazi97 shirazi97  2950 Mar 19 17:28 shell2.c
+-rwxrwxrwx 1 shirazi97 shirazi97  2800 Mar 19 15:53 shell3.c
+-rwxrwxrwx 1 shirazi97 shirazi97 54501 Mar 19 15:53 task1.pdf

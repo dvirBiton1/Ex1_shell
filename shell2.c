@@ -13,10 +13,12 @@ char *token;
 char *outfile;
 int i, fd, amper, redirect, retid, status;
 char *argv[10];
+char PROMPT_BUFFER[30];
+strcpy(PROMPT_BUFFER, "hello: ");
 
 while (1)
 {
-    printf("hello: ");
+    printf("%s", PROMPT_BUFFER);
     fgets(command, 1024, stdin);
     command[strlen(command) - 1] = '\0';
 
@@ -41,7 +43,14 @@ while (1)
         argv[i - 1] = NULL;
     }
     else 
-        amper = 0; 
+        amper = 0;
+
+    /* Does command line have prompt = */
+    if (! strcmp(argv[i - 2], "=")) {
+        if (! strcmp(argv[i - 3], "prompt")) {
+            strcpy(PROMPT_BUFFER, argv[i-1]);
+        }
+    }
 
     if (! strcmp(argv[i - 2], ">")) {
         redirect = 1;
@@ -63,14 +72,41 @@ while (1)
 
     /* for commands not part of the shell command language */ 
 
-    if (fork() == 0) { 
+    if (fork() == 0) {
         /* redirection of IO ? */
         if (redirect) {
-            fd = creat(outfile, 0660); 
-            close (STDOUT_FILENO) ; 
-            dup(fd); 
-            close(fd); 
-            /* stdout is now redirected */
+
+            switch (redirect) {
+                case 1:
+                    printf("1\n");
+                    fd = creat(outfile, 0660);
+                    close (STDOUT_FILENO) ;
+                    dup(fd);
+                    close(fd);
+                    /* stdout is now redirected */
+                    break;
+                case 2:
+                    printf("2\n");
+                    fd = creat(outfile, 0660);
+                    close (STDERR_FILENO) ;
+                    dup(fd);
+                    close(fd);
+                    /* stderr is now redirected */
+                    break;
+                case 3:
+                    printf("3\n");
+                    fd = open(outfile, O_WRONLY | O_CREAT | O_APPEND, 0660);
+                    if (fd < 0) {
+                        perror("open");
+                        exit(EXIT_FAILURE);
+                    }
+                    close(STDOUT_FILENO);
+                    dup(fd);
+                    close(fd);
+                    break;
+            }
+
+
         } 
         execvp(argv[0], argv);
     }
