@@ -7,6 +7,7 @@
 #include "unistd.h"
 #include <string.h>
 #include <iostream>
+#include <map>
 
 
 using namespace std;
@@ -15,7 +16,6 @@ int control_c = 0;
 
 void sigint_handler(int signum) {
     std::cout << "You typed Control-C!" << std::endl << std::flush;
-    control_c = 1;
 }
 
 int main() {
@@ -23,7 +23,7 @@ int main() {
     char command[1024];
     char *token;
     char *outfile;
-    int i, fd, amper, redirect, retid, status, quit;
+    int i, fd, amper, redirect, retid, status, quit, dollar, echo;
     char *argv[10];
     strcpy(PROMPT_BUFFER, "hello: ");
 
@@ -59,6 +59,20 @@ int main() {
             quit = 0;
         }
 
+        if (argv[0][0] == '$') {
+            dollar = 1;
+        } else {
+            dollar = 0;
+        }
+
+        if (!strcmp(argv[0], "echo")) {
+            echo = 1;
+            cout << "echo pppooo!" << endl;
+        } else {
+            echo = 0;
+        }
+
+
         /* Does command line have prompt = */
         if (!strcmp(argv[i - 2], "=")) {
             if (!strcmp(argv[i - 3], "prompt")) {
@@ -84,10 +98,7 @@ int main() {
         /* for commands not part of the shell command language */
 
         if (fork() == 0) {
-            if (quit) {
-                exit(0);
-            }
-            if (control_c) {
+            if (quit || control_c) {
                 exit(0);
             }
             /* redirection of IO ? */
@@ -125,11 +136,46 @@ int main() {
 
 
             }
+            if (dollar) {
+                cout << "ciii" << endl;
+                if ((!strcmp(argv[1], "=")) && (argv[2] != NULL)) {
+                    cout << "cii222i" << endl;
+                    std::string str_var(argv[0]);
+                    string sliced_var = str_var.substr(1);
+                    if (setenv(sliced_var.c_str(), argv[2], 1) != 0) {
+                        cout << "failed!" << endl;
+                    } else {
+                        cout << "setenv!!" << endl;
+                    }
+                } else {
+                    exit(1);
+                }
+                exit(0);
+            }
+
+            if (echo) {
+                cout << "kan11" << endl;
+                for (int i = 1; i < 10; i++) {
+                    cout << "jhfkjwgfkw";
+                    if (argv[i][0] == '$') {
+                        std::string str_var(argv[0]);
+                        string sliced_var = str_var.substr(1);
+                        char *var_value = getenv(sliced_var.c_str());
+                        printf("%s ", var_value);
+                        printf("%s ", "var_value");
+                    } else {
+                        printf("%s ", argv[i]);
+                        printf("%s ", "argv[i]");
+                    }
+
+                }
+            }
+
             execvp(argv[0], argv);
         }
         /* parent continues here */
-        if (control_c){
-            control_c=0;
+        if (control_c) {
+            control_c = 0;
         }
         if (quit) {
             exit(0);
