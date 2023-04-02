@@ -1,0 +1,19 @@
+ls: cannot access 'nofile': No such file or directory
+total 256
+-rw-r--r-- 1 dvir1234 dvir1234    12 Mar 19 15:48 README.md
+-rw-r--r-- 1 dvir1234 dvir1234  1074 Mar 19 15:49 key.c
+-rw-r--r-- 1 dvir1234 dvir1234    54 Apr  2 18:39 log.txt
+-rw-r--r-- 1 dvir1234 dvir1234  5087 Apr  2 18:39 m_shell.cpp
+-rwxr-xr-x 1 dvir1234 dvir1234 38784 Mar 19 15:54 main
+-rw-r--r-- 1 dvir1234 dvir1234   123 Mar 19 15:44 main.cpp
+-rw-r--r-- 1 dvir1234 dvir1234  5338 Apr  2 18:39 main_shell.cpp
+-rw-r----- 1 dvir1234 dvir1234    54 Apr  2 19:01 mylog.txt
+-rwxr-xr-x 1 dvir1234 dvir1234 17392 Apr  2 19:00 myshell
+-rw-r--r-- 1 dvir1234 dvir1234 78440 Apr  2 18:39 myshell2
+-rw-r--r-- 1 dvir1234 dvir1234  1032 Mar 19 15:49 shell1.c
+-rw-r--r-- 1 dvir1234 dvir1234  2833 Apr  2 18:39 shell2.c
+-rw-r--r-- 1 dvir1234 dvir1234  2622 Apr  2 19:00 shell2_dvir.c
+-rw-r--r-- 1 dvir1234 dvir1234    79 Apr  2 18:45 shell2_dvir.c:Zone.Identifier
+-rw-r--r-- 1 dvir1234 dvir1234  3205 Apr  2 18:39 shell3.c
+-rw-r--r-- 1 dvir1234 dvir1234  2848 Apr  2 18:39 shell_try.cpp
+-rw-r--r-- 1 dvir1234 dvir1234 54501 Mar 19 15:49 task1.pdf
