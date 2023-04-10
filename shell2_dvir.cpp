@@ -1,6 +1,7 @@
 #include <sys/stat.h>
 #include <sys/wait.h>
 #include <fcntl.h>
+#include <stdio.h>
 #include "stdio.h"
 #include "errno.h"
 #include "stdlib.h"
@@ -17,6 +18,11 @@
 #include <string.h>
 #include <iostream>
 #include <map>
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+
 
 using namespace
 std;
@@ -63,9 +69,12 @@ int main() {
     char *outfile;
     char last_command[1024] = ""; // Initialize to empty string for last_command
     char temp_command[1024] = ""; // Initialize to empty string for last_command
+    const int MAX_COMMANDS = 30; // Maximum number of commands to store in memory
     int i, fd, amper, redirect, retid, status;
     char *argv[10];
     char PROMPT_BUFFER[30];
+    std::vector < string > commandHistory; // Vector to store command history
+    int currentCommandIndex = -1;
     strcpy(PROMPT_BUFFER, "hello: ");
     signal(SIGINT, sigint_handler);
     while (1) {
@@ -74,10 +83,13 @@ int main() {
         fgets(command, 1024, stdin);
         command[strlen(command) - 1] = '\0';
         strcpy(temp_command, command);
+        string command_s = command;
         // printf("command: %s\n", command);
         // printf("temp_command: %s\n", temp_command);
         // printf("last_command: %s\n", last_command);
         /* parse command line */
+
+
         i = 0;
         token = strtok(command, " ");
         while (token != NULL) {
@@ -91,6 +103,69 @@ int main() {
         if (argv[0] == NULL)
             continue;
 
+
+        if (argv[0][0] == 27 && argv[0][1] == 91) { // if the first value is esc and the next two are '['
+            string inputString;
+            printf("\033[1A");//line up
+            printf("\x1b[2K");//delete line
+            char arrowKey = argv[0][2];
+            if (arrowKey == 65) { // up arrow
+                cout << "up" << endl;
+                if (commandHistory.size() == 0) {
+                    continue;
+                }
+                if (currentCommandIndex == MAX_COMMANDS) {
+                    currentCommandIndex = 0;
+                } else {
+                    currentCommandIndex++;
+                }
+            } else if (arrowKey == 66) { // down arrow
+                cout << "down" << endl;
+                if (commandHistory.size() == 0) {
+                    continue;
+                }
+
+                if (currentCommandIndex == 0) {
+                    currentCommandIndex = commandHistory.size() - 1;
+                } else {
+                    currentCommandIndex--;
+                }
+            }
+//---------------------------------------------------------------------------------- code to update!!!!
+            if (currentCommandIndex >= 0 && currentCommandIndex < commandHistory.size()) {
+                inputString = commandHistory[currentCommandIndex];
+                const char* inputChars = inputString.c_str();
+
+                int i = 0;
+                char* tok = strtok((char*) inputChars, " ");
+                while (tok != NULL && i < 9) {  // make sure not to exceed the array size
+                    argv[i] = tok;
+                    tok = strtok(NULL, " ");
+                    i++;
+                }
+                argv[i] = NULL;
+
+            } else {
+                continue;
+            }
+
+
+
+            i = 0;
+            while (argv[i] != NULL) {
+                cout << argv[i] << " ";
+                i++;
+            }
+            cout << endl;
+
+
+
+        } else {
+            commandHistory.push_back(command_s);
+            if (commandHistory.size() > MAX_COMMANDS) {
+                commandHistory.erase(commandHistory.begin());
+            }
+        }
 
         if (argv[0][0] == '$') {
             if ((!strcmp(argv[1], "=")) && (argv[2] != NULL)) {
