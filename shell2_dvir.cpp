@@ -127,7 +127,6 @@ int main() {
                     currentCommandIndex--;
                 }
             }
-            //---------------------------------------------------------------------------------- code to update!!!!
             if (currentCommandIndex >= 0 && currentCommandIndex < commandHistory.size()) {
                 inputString = commandHistory[currentCommandIndex];
                 const char *inputChars = inputString.c_str();
@@ -206,6 +205,16 @@ int main() {
         if (!strcmp(argv[0], "quit")) {
             exit(0);
         }
+
+        if (!strcmp(argv[0], "read")) {
+            char buffer[100];
+            char buffer2[100];
+            strcpy(buffer, argv[1]);
+            scanf("%s", buffer2);
+            setenv(buffer, buffer2, 1);
+            continue;
+        }
+
         if (!strcmp(argv[0], "echo")) {
             if (strcmp(argv[1], "$?") == 0) {
                 printf("Last command exited with status %d\n", status);
@@ -228,39 +237,57 @@ int main() {
             cout << endl;
             continue;
         }
-        if ((i >= 3) && (!strcmp(argv[i - 1], "=")) && (!strcmp(argv[i - 2], "prompt"))) {
+        if ((i >= 2) && (!strcmp(argv[1], "=")) && (!strcmp(argv[0], "prompt"))) {
             strcpy(PROMPT_BUFFER, argv[2]);
             continue;
         }
+
+
+        if (!strcmp(argv[0], "if")) {
+            char externalCommand[1024] = "";
+            int j = 0;
+            while (argv[j] != NULL) {
+                strcat(externalCommand, argv[j]);
+                strcat(externalCommand, " ");
+                j++;
+            }
+            strcat(externalCommand, "\n");
+            char buf[1024] = "";
+            fgets(buf, 1024, stdin);
+            while (strcmp(buf, "fi\n")) {
+                strcat(externalCommand, buf);
+                strcat(externalCommand, " ");
+                memset(buf, 0, sizeof(buf));
+                fgets(buf, 1024, stdin);
+            }
+            strcat(externalCommand, "fi\n");
+            system(externalCommand);
+            continue;
+        }
+
+
+
         /* Does command line end with & */
-        if (!strcmp(argv[i - 1], "&")) {
+        if ((i>=1)&&(!strcmp(argv[i - 1], "&"))) {
             amper = 1;
             argv[i - 1] = NULL;
         } else
             amper = 0;
-
-        if (!strcmp(argv[i - 2], ">")) {
-            redirect = 1;
-            argv[i - 2] = NULL;
-            outfile = argv[i - 1];
-        } else if (!strcmp(argv[i - 2], "2>")) {
-            redirect = 2;
-            argv[i - 2] = NULL;
-            outfile = argv[i - 1];
-        } else if (!strcmp(argv[i - 2], ">>")) {
-            redirect = 3;
-            argv[i - 2] = NULL;
-            outfile = argv[i - 1];
-        } else
-            redirect = 0;
-
-        if (!strcmp(argv[0], "read")) {
-            char buffer[100];
-            char buffer2[100];
-            strcpy(buffer, argv[1]);
-            scanf("%s", buffer2);
-            setenv(buffer, buffer2, 1);
-            continue;
+        if (i>=2) {
+            if (!strcmp(argv[i - 2], ">")) {
+                redirect = 1;
+                argv[i - 2] = NULL;
+                outfile = argv[i - 1];
+            } else if (!strcmp(argv[i - 2], "2>")) {
+                redirect = 2;
+                argv[i - 2] = NULL;
+                outfile = argv[i - 1];
+            } else if (!strcmp(argv[i - 2], ">>")) {
+                redirect = 3;
+                argv[i - 2] = NULL;
+                outfile = argv[i - 1];
+            } else
+                redirect = 0;
         }
 
         /* for commands not part of the shell command language */
