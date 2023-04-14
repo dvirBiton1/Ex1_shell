@@ -1,0 +1,20 @@
+"First Test"
+Fri Apr 14 16:15:17 IDT 2023
+Fri Apr 14 13:15:53 UTC 2023
+/mnt/c/Users/shira/Desktop/לימודים/שנה ג/סמסטר ב/תכנות מתקדם/Ex1_shell
+total 476
+-rwxrwxrwx 1 shirazi97 shirazi97    160 Apr 14 16:07 Makefile
+-rwxrwxrwx 1 shirazi97 shirazi97     13 Mar 19 15:53 README.md
+-rwxrwxrwx 1 shirazi97 shirazi97 166448 Apr 14 16:11 myshell
+-rwxrwxrwx 1 shirazi97 shirazi97  10174 Apr 14 15:39 myshell.cpp
+-rwxrwxrwx 1 shirazi97 shirazi97 249832 Apr 14 16:11 myshell.o
+-rwxrwxrwx 1 shirazi97 shirazi97  54501 Mar 19 15:53 task1.pdf
+-rwxrwxrwx 1 shirazi97 shirazi97    156 Apr 14 16:17 test.txt
+Green
+White
+Black
+Green
+      2 Green
+      1 White
+      1 Black
+"Last Test"

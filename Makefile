@@ -2,8 +2,8 @@
 
 all: myshell
 myshell: myshell.o
-	g++ -g shell2_dvir.o -o myshell
-myshell.o: shell2_dvir.cpp 
-	g++ -c -g shell2_dvir.cpp
+	g++ -g myshell.o -o myshell
+myshell.o: myshell.cpp
+	g++ -c -g myshell.cpp
 clean :
 	rm -f *.o myshell
