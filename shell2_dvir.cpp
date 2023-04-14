@@ -87,7 +87,10 @@ int main() {
         // printf("temp_command: %s\n", temp_command);
         // printf("last_command: %s\n", last_command);
         /* parse command line */
-
+        if (strstr(command, " | ") != NULL){
+            system(command);
+            continue;
+        }
         i = 0;
         token = strtok(command, " ");
         while (token != NULL) {
