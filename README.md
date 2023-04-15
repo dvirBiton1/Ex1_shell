@@ -1,6 +1,7 @@
 # Shell Program
 This is a shell program that can execute various commands and perform additional features.
-This program written in c++
+
+This program was written in c++
 ****************************************
 ### Running the Program:  
 
