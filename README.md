@@ -1,5 +1,6 @@
 # Shell Program
 This is a shell program that can execute various commands and perform additional features.
+This program written in c++
 ****************************************
 ### Running the Program:  
 
@@ -11,7 +12,7 @@ make && ./myshell
 
 *** Run "make clean" to delete the myshell executable file ***
 
-### Features
+### Features:
 The program can perform the following features:  
 
 Execute commands entered by the user, such as ls -l.  
@@ -50,7 +51,13 @@ View command history using the up and down arrow keys.
 
 Use flow control statements such as if and else to execute commands conditionally.  
 
+### Clarifications:
 
-### Authors
+Regarding section 12 using arrows as in a real "shell":
+After pressing an arrow (up or down) you will need to press enter to see the next/previous command
+When a command appears that we want to run, pressing enter will run it and return us to normal work in the shell
+This section supports the memory of the last 30 commands (the instructions required at least 20)
+
+### Authors:
 
 This program was created by Ohad Shirazi and Dvir Biton.
