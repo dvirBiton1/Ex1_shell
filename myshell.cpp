@@ -91,7 +91,6 @@ int if_else(const char *command) {
 }
 
 
-
 void sigint_handler(int sig) {
     printf("You typed Control-C!\n");
 }
@@ -118,7 +117,6 @@ int main() {
         strcpy(temp_command, command);
         string command_s = command;
 
-
         if ((strstr(command, " | ") != NULL) && (strstr(command, "if") == NULL)) {
 
             vector <string> commands;
@@ -129,7 +127,6 @@ int main() {
                 commands.push_back(copy_command);
                 token = strtok(NULL, "|");
             }
-
 
             // Execute all commands
             int fd[2];
@@ -151,7 +148,6 @@ int main() {
                         exit(EXIT_FAILURE);
                     }
                 }
-
                 // Execute command
                 pid_t pid = fork();
                 if (pid == 0) {
@@ -208,10 +204,6 @@ int main() {
         }
 
 
-
-
-
-
         /* parse command line */
         i = 0;
         token = strtok(command, " ");
@@ -258,7 +250,7 @@ int main() {
 
                 int i = 0;
                 char *tok = strtok((char *) inputChars, " ");
-                while (tok != NULL && i < 9) { // make sure not to exceed the array size
+                while (tok != NULL && i < 9) {
                     argv[i] = tok;
                     tok = strtok(NULL, " ");
                     i++;
@@ -278,7 +270,7 @@ int main() {
             if (strlen(command) >= 3 && command[0] == '\x1b' && command[1] == '[') {
                 int i = 0;
                 char *tok = strtok(command, " ");
-                while (tok != NULL && i < 9) { // make sure not to exceed the array size
+                while (tok != NULL && i < 9) {
                     argv[i] = tok;
                     tok = strtok(NULL, " ");
                     i++;
@@ -312,7 +304,6 @@ int main() {
             continue;
         }
 
-        /* Does command line have prompt = */
         if (strcmp(argv[0], "cd") == 0) {
             chdir(argv[1]);
             continue;
@@ -367,7 +358,6 @@ int main() {
             continue;
         }
 
-
         if (!strcmp(argv[0], "if")) {
             char externalCommand[1024] = "";
             int j = 0;
@@ -389,7 +379,6 @@ int main() {
             if_else(externalCommand);
             continue;
         }
-
 
         /* Does command line end with & */
         if ((i >= 1) && (!strcmp(argv[i - 1], "&"))) {
@@ -416,7 +405,6 @@ int main() {
 
         /* for commands not part of the shell command language */
         if (fork() == 0) {
-            printf("Child process\n");
             signal(SIGINT, SIG_DFL);
             /* redirection of IO ? */
             if (redirect) {
@@ -427,7 +415,6 @@ int main() {
             /* parent continues here */
             if (amper == 0)
                 retid = wait(&status);
-            // printf("Father proccess\n");
         }
     }
 }
