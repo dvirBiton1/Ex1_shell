@@ -1,7 +1,7 @@
 # Shell Program
 This is a shell program that can execute various commands and perform additional features.
 ****************************************
-Running the Program:  
+### Running the Program:  
 
 To run the program, navigate to the directory where the program is saved and execute the following command in the terminal:
 
@@ -11,7 +11,7 @@ make && ./myshell
 
 *** Run "make clean" to delete the myshell executable file ***
 
-Features
+### Features
 The program can perform the following features:  
 
 Execute commands entered by the user, such as ls -l.  
@@ -51,5 +51,6 @@ View command history using the up and down arrow keys.
 Use flow control statements such as if and else to execute commands conditionally.  
 
 
-Authors
+### Authors
+
 This program was created by Ohad Shirazi and Dvir Biton.
